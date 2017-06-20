@@ -3,6 +3,7 @@ package com.example.demo.hystrix;
 import com.example.demo.MainService;
 import com.netflix.hystrix.HystrixCommand;
 import com.netflix.hystrix.HystrixCommandGroupKey;
+import com.netflix.hystrix.HystrixCommandKey;
 import com.netflix.hystrix.HystrixCommandProperties;
 
 import java.util.concurrent.TimeUnit;
@@ -17,6 +18,7 @@ public class FallbackCommand extends HystrixCommand<String> {
 
     protected FallbackCommand(String name, MainService mainService) {
         super(Setter.withGroupKey(HystrixCommandGroupKey.Factory.asKey("HelloWorldGroup"))
+                .andCommandKey(HystrixCommandKey.Factory.asKey("aaaaaa"))
                 .andCommandPropertiesDefaults(HystrixCommandProperties.Setter()
                         // 使用命令调用隔离方式,默认:采用线程隔离,ExecutionIsolationStrategy.THREAD
                         .withExecutionIsolationStrategy(HystrixCommandProperties.ExecutionIsolationStrategy.THREAD)
